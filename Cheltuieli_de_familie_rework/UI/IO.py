@@ -1,6 +1,7 @@
 from Cheltuieli_de_familie_rework.UI import Graphics
 from Cheltuieli_de_familie_rework import Repo
 from Cheltuieli_de_familie_rework import Expenses
+from Cheltuieli_de_familie_rework import Validator
 
 def Input(promptText):
     """
@@ -55,7 +56,7 @@ def GetCommandId():
     """
     commandId = Input("Introduceti numarul comenzii dorite: ")
     try:
-        #ValidateCommandId(commandId)
+        Validator.ValidateCommandId(commandId)
         return commandId
     except Exception as ex:
         OutputException(ex)
@@ -69,7 +70,7 @@ def GetExpense():
         ammount = Input("Suma: ")
         category = Input("Tipul cheltuielii: ")
         expense = Expenses.MakeExpense(day, ammount, category)
-        #ValidateExpense(expense)
+        Validator.ValidateExpense(expense)
         return expense
     except Exception as ex:
         OutputException(ex)
