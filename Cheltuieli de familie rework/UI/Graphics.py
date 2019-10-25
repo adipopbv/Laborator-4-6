@@ -19,17 +19,16 @@ def DisplayAppName():
     """
     displays the name of the app
     """
-    print("/-----------------------\ ")
-    print("| Cheltuieli De Familie | ")
-    print("\-----------------------/ ")
-    EmptyLine()
+    Display("   /-----------------------\ \n", 
+            "   | Cheltuieli De Familie | \n",
+            "   \-----------------------/ ")
 
 def DisplayCommands():
     """
     displays all the posible commands that can be inputed, with a description
     """
-    print("COMENZI:")
-    print("Adaugare si actualizare:\n",
+    Display("COMENZI:")
+    Display("Adaugare si actualizare:\n",
     "     [1]: Adauga o noua cheltuiala;\n",
     "     [2]: Actualizeaza o cheltuiala;\n",
     "Stergere:\n",
@@ -54,6 +53,8 @@ def DisplayCommands():
     EmptyLine()
 
 def DisplayMenu():
-    
+    """
+    displays the main menu
+    """
     DisplayAppName()
     DisplayCommands()
