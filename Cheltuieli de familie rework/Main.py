@@ -16,3 +16,6 @@ def RunApplication():
         Graphics.DisplayMenu()
         commandId = IO.GetCommandId()
         DoCommandWithId(commandId)
+
+RunAllTests()
+RunApplication()
