@@ -36,7 +36,7 @@ def Test_ValidateExpense():
         Validator.ValidateExpense("lala")
         assert False
     except:
-        assert False
+        assert True
     try:
         Validator.ValidateExpense({"day":"ha","ammount":[],"category":0.0})
         assert False

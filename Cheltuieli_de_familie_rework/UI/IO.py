@@ -66,9 +66,9 @@ def GetExpense():
 
     OutputText("Introduceti cheltuiala dorita: ")
     try:
-        day = Input("Ziua: ")
-        ammount = Input("Suma: ")
-        category = Input("Tipul cheltuielii: ")
+        day = int(Input("Ziua: "))
+        ammount = float(Input("Suma: "))
+        category = str(Input("Tipul cheltuielii: "))
         expense = Expenses.MakeExpense(day, ammount, category)
         Validator.ValidateExpense(expense)
         return expense

@@ -13,7 +13,7 @@ def Test_IndexOfItemInRepo():
             "category": "altele"
         }
     ]
-    assert Repo.IndexOfItemInRepo(repo, {"day":3,"ammount":4.0,"category":"altele"}) == 1
+    assert Repo.IndexOfItemInRepo(repo, {"day":3,"ammount":4.0,"category":"altele"}) == 0
     try:
         Repo.IndexOfItemInRepo(repo, {"day":1000,"ammount":40.0,"category":"aele"})
         assert False

@@ -13,7 +13,7 @@ def IndexOfItemInRepo(repo, item):
         int: index of item in repo
     """
     for repoItem in repo:
-        if repoItem == repo:
+        if repoItem == item:
             return repo.index(repoItem)
     raise Exception("Entitate inexistenta in lista!")
 
