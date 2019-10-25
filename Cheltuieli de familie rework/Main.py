@@ -1,5 +1,6 @@
 from UI import IO
 from UI import Graphics
+import Commands
 
 def RunAllTests():
     """
@@ -15,7 +16,7 @@ def RunApplication():
     while True:
         Graphics.DisplayMenu()
         commandId = IO.GetCommandId()
-        DoCommandWithId(commandId)
+        Commands.DoCommandWithId(commandId)
 
 RunAllTests()
 RunApplication()
