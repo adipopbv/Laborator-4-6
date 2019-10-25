@@ -1,7 +1,9 @@
 from Cheltuieli_de_familie_rework import Repo
 
 def RunAllTests():
-    pass
+    Test_IndexOfItemInRepo()
+    Test_AddToRepo()
+    Test_SwapInRepo()
 
 def Test_IndexOfItemInRepo():
     repo = [
