@@ -3,12 +3,12 @@ from Cheltuieli_de_familie_rework import Repo
 from Cheltuieli_de_familie_rework import Expenses
 
 commands = {
-    1: AddNewExpense,
-    2: UpdateExpense,
-    #6: SearchExpensesGreaterThanAmmount,
-    #9: TotalAmmountForGivenCategory,
-    #13: EraseExpensesOfGivenCategory,
-    #16: ExitApplication
+    "1": AddNewExpense,
+    "2": UpdateExpense,
+    #"6": SearchExpensesGreaterThanAmmount,
+    #"9": TotalAmmountForGivenCategory,
+    #"13": EraseExpensesOfGivenCategory,
+    #"16": ExitApplication
 }
 
 def DoCommandWithId(commandId):
