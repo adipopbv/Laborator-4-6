@@ -19,6 +19,6 @@ def AddNewExpense():
     """
     try:
         expense = IO.GetExpense()
-        Repo.AddToList(Repo.expenseRepo, expense)
+        Repo.AddToRepo(Repo.expenseRepo, expense)
     except Exception as ex:
         IO.OutputException(ex)
