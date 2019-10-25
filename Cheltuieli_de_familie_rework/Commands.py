@@ -1,5 +1,6 @@
 from Cheltuieli_de_familie_rework.UI import IO
 from Cheltuieli_de_familie_rework import Repo
+from Cheltuieli_de_familie_rework import Expenses
 
 commands = {
     1: AddNewExpense,
@@ -19,7 +20,7 @@ def AddNewExpense():
     """
     try:
         expense = IO.GetExpense()
-        Repo.AddToRepo(Repo.expenseRepo, expense)
+        Repo.AddToRepo(Expenses.repo, expense)
     except Exception as ex:
         IO.OutputException(ex)
 
@@ -31,6 +32,6 @@ def UpdateExpense():
         originalExpense = IO.GetExpense()
         IO.OutputText("De inlocuit cu...")
         updatedExpense = IO.GetExpense()
-        Repo.SwapInRepo(Repo.expenseRepo, originalExpense, updatedExpense)
+        Repo.SwapInRepo(Expenses.repo, originalExpense, updatedExpense)
     except Exception as ex:
         IO.OutputException(ex)

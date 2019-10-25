@@ -1,5 +1,3 @@
-expenseRepo = []
-
 def IndexOfItemInRepo(repo, item):
     """
     searches the index of an item in a repository
@@ -32,9 +30,19 @@ def AddToRepo(repo, item):
     """
     repo.append(item)
 
-def SwapInRepo(repo, originalExpense, updatedExpense):
-
+def SwapInRepo(repo, originalItem, updatedItem):
+    """
+    swaps a value in repo
+    
+    Args:
+        repo (list): a repository
+        originalItem (any type): the item to be swapped
+        updatedItem (any type): the item to swap with
+    
+    Raises:
+        Exception: item not present in repo
+    """
     try:
-        expenseRepo[IndexOfItemInRepo(expenseRepo, originalExpense)] = updatedExpense
+        repo[IndexOfItemInRepo(repo, originalItem)] = updatedItem
     except Exception as ex:
         raise Exception(ex)

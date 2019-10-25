@@ -1,4 +1,6 @@
 from Cheltuieli_de_familie_rework.UI import Graphics
+from Cheltuieli_de_familie_rework import Repo
+from Cheltuieli_de_familie_rework import Expenses
 
 def Input(promptText):
     """
@@ -61,8 +63,12 @@ def GetCommandId():
 
 def GetExpense():
 
-    expense = Input("Introduceti cheltuiala dorita: ")
+    OutputText("Introduceti cheltuiala dorita: ")
     try:
+        day = Input("Ziua: ")
+        ammount = Input("Suma: ")
+        category = Input("Tipul cheltuielii: ")
+        expense = Expenses.MakeExpense(day, ammount, category)
         #ValidateExpense(expense)
         return expense
     except Exception as ex:
