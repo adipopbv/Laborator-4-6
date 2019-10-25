@@ -30,9 +30,9 @@ def OutputExpense(expense):
     Args:
         expense (dictionary): an expense to be printed
     """
-    Graphics.Display("id: " + str(expense.get("id")) + '\n',
-                    "day: " + str(expense.get("day")) + '\n',
-                    "ammount" + str(expense.get("ammount")) + '\n',
+    Graphics.Display("id: " + str(expense.get("id")) + '\n' +
+                    "day: " + str(expense.get("day")) + '\n' +
+                    "ammount" + str(expense.get("ammount")) + '\n' +
                     "category: " + expense.get("category"))
 
 def GetCommandId():
