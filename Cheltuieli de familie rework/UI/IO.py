@@ -10,25 +10,34 @@ def Input(promptText):
     Returns:
         any type: the value inputted by the user
     """
-    Graphics.Display(promptText)
+    OutputText(promptText)
     inputValue = input()
     return inputValue
 
-def OutputException(exceptionMessage):
+def OutputText(text):
     """
-    prints the given exception message in the console
+    outputs a given text
     
     Args:
-        exceptionMessage (str): the exception text to be printed
+        text (str): the text to be outputted
+    """
+    Graphics.Display(text)
+
+def OutputException(exceptionMessage):
+    """
+    outputs the given exception message
+    
+    Args:
+        exceptionMessage (str): the exception text to be outputted
     """
     Graphics.Display(exceptionMessage)
 
 def OutputExpense(expense):
     """
-    prints an expense in the console
+    outputs an expense
     
     Args:
-        expense (dictionary): an expense to be printed
+        expense (dictionary): an expense to be outputted
     """
     Graphics.Display("id: " + str(expense.get("id")) + '\n' +
                     "day: " + str(expense.get("day")) + '\n' +
@@ -49,3 +58,13 @@ def GetCommandId():
     except Exception as ex:
         OutputException(ex)
         return GetCommandId()
+
+def GetExpense():
+
+    expense = Input("Introduceti cheltuiala dorita: ")
+    try:
+        #ValidateExpense(expense)
+        return expense
+    except Exception as ex:
+        OutputException(ex)
+        return GetExpense()
