@@ -1,4 +1,5 @@
 import IO
+import Graphics
 
 def RunAllTests():
     """
@@ -12,6 +13,6 @@ def RunApplication():
     shows the menu, gets and executes a command every iteration
     """
     while True:
-        ShowMenu()
+        Graphics.DisplayMenu()
         commandId = IO.GetCommandId()
         DoCommandWithId(commandId)

@@ -1,3 +1,5 @@
+import Graphics
+
 def Input(promptText):
     """
     gets a value from the user via the console
@@ -8,17 +10,18 @@ def Input(promptText):
     Returns:
         any type: the value inputted by the user
     """
-    inputValue = input(promptText)
+    Graphics.Display(promptText)
+    inputValue = input()
     return inputValue
 
-def Output(text):
+def OutputException(exceptionMessage):
     """
-    prints the given text in the console
+    prints the given exception message in the console
     
     Args:
-        text (str): the text to be printed
+        exceptionMessage (str): the exception text to be printed
     """
-    print(text)
+    Graphics.Display(exceptionMessage)
 
 def OutputExpense(expense):
     """
@@ -27,10 +30,10 @@ def OutputExpense(expense):
     Args:
         expense (dictionary): an expense to be printed
     """
-    print("id: " + str(expense.get("id")) + '\n',
-          "day: " + str(expense.get("day")) + '\n',
-          "ammount" + str(expense.get("ammount")) + '\n',
-          "category: " + expense.get("category"))
+    Graphics.Display("id: " + str(expense.get("id")) + '\n',
+                    "day: " + str(expense.get("day")) + '\n',
+                    "ammount" + str(expense.get("ammount")) + '\n',
+                    "category: " + expense.get("category"))
 
 def GetCommandId():
     """
@@ -44,5 +47,5 @@ def GetCommandId():
         #ValidateCommandId(commandId)
         return commandId
     except Exception as ex:
-        Output(ex)
+        OutputException(ex)
         return GetCommandId()
