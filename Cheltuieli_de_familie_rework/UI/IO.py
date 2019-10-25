@@ -1,4 +1,4 @@
-from UI import Graphics
+from Cheltuieli_de_familie_rework.UI import Graphics
 
 def Input(promptText):
     """

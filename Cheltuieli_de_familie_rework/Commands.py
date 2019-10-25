@@ -1,5 +1,5 @@
-from UI import IO
-import Repo
+from Cheltuieli_de_familie_rework.UI import IO
+from Cheltuieli_de_familie_rework import Repo
 
 commands = {
     1: AddNewExpense,

@@ -1,6 +1,6 @@
-from UI import IO
-from UI import Graphics
-import Commands
+from Cheltuieli_de_familie_rework.UI import IO
+from Cheltuieli_de_familie_rework.UI import Graphics
+from Cheltuieli_de_familie_rework import Commands
 
 def RunAllTests():
     """
