@@ -1,4 +1,4 @@
-import Graphics
+from UI import Graphics
 
 def Input(promptText):
     """

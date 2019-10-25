@@ -1,9 +1,9 @@
-import IO
-import Graphics
+from UI import IO
+from UI import Graphics
 
 def RunAllTests():
     """
-    runs all assertin tests in the project
+    runs all asserting tests in the project
     """
     pass
 
