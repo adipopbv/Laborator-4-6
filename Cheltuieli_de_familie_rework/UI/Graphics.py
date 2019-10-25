@@ -12,7 +12,7 @@ def Display(text):
         text (str): text to be printed
     """
     print(text)
-    EmptyLine()
+    #EmptyLine()
 
 def DisplayAppName():
     """

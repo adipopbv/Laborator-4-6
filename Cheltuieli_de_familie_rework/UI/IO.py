@@ -42,10 +42,10 @@ def OutputExpense(expense):
     Args:
         expense (dictionary): an expense to be outputted
     """
-    Graphics.Display("id: " + str(expense.get("id")) + '\n' +
-                    "day: " + str(expense.get("day")) + '\n' +
+    Graphics.Display("day: " + str(expense.get("day")) + '\n' +
                     "ammount" + str(expense.get("ammount")) + '\n' +
                     "category: " + expense.get("category"))
+    Graphics.EmptyLine()
 
 def GetCommandId():
     """
@@ -63,7 +63,12 @@ def GetCommandId():
         return GetCommandId()
 
 def GetExpense():
-
+    """
+    gets an expense from the user
+    
+    Returns:
+        dictionary: an expense
+    """
     OutputText("Introduceti cheltuiala dorita: ")
     try:
         day = int(Input("Ziua: "))
@@ -75,3 +80,42 @@ def GetExpense():
     except Exception as ex:
         OutputException(ex)
         return GetExpense()
+
+def GetDay():
+    """
+    gets a day from the user
+    
+    Returns:
+        int: a day
+    """
+    try:
+        day = int(Input("Introduceti ziua dorita: "))
+        return day
+    except Exception as ex:
+        OutputException(ex)
+
+def GetAmmount():
+    """
+    gets an ammount from the user
+    
+    Returns:
+        float: an ammount
+    """
+    try:
+        ammount = float(Input("Introduceti suma dorita: "))
+        return ammount
+    except Exception as ex:
+        OutputException(ex)
+
+def GetCategory():
+    """
+    gets a category from the user
+    
+    Returns:
+        str: a category
+    """
+    try:
+        category = str(Input("Introduceti ziua dorita: "))
+        return category
+    except Exception as ex:
+        OutputException(ex)
