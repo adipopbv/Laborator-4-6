@@ -1,7 +1,7 @@
-from Cheltuieli_de_familie_rework.UI import Graphics
-from Cheltuieli_de_familie_rework import Repo
-from Cheltuieli_de_familie_rework import Expenses
-from Cheltuieli_de_familie_rework import Validator
+from UI import Graphics
+import Repo
+import Expenses
+import Validator
 
 def Input(promptText):
     """

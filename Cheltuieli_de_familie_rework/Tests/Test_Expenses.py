@@ -1,4 +1,4 @@
-from Cheltuieli_de_familie_rework import Expenses
+import Expenses
 
 def RunAllTests():
     Test_MakeExpense()

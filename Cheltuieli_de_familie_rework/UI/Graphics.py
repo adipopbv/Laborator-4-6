@@ -1,4 +1,3 @@
-
 def EmptyLine():
     """
     prints an empty line in the console

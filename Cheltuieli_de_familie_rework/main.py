@@ -1,10 +1,10 @@
-from Cheltuieli_de_familie_rework.UI import IO
-from Cheltuieli_de_familie_rework.UI import Graphics
-from Cheltuieli_de_familie_rework import Commands
+from UI import IO
+from UI import Graphics
+import Commands
 
-from Cheltuieli_de_familie_rework.Tests import Test_Repo
-from Cheltuieli_de_familie_rework.Tests import Test_Expenses
-from Cheltuieli_de_familie_rework.Tests import Test_Validator
+from Tests import Test_Repo
+from Tests import Test_Expenses
+from Tests import Test_Validator
 
 def RunAllTests():
     """

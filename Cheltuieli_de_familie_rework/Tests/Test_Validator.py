@@ -1,4 +1,4 @@
-from Cheltuieli_de_familie_rework import Validator
+import Validator
 
 def RunAllTests():
     Test_ValidateCommandId()
