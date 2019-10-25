@@ -8,7 +8,11 @@ def ValidateCommandId(commandId):
     Raises:
         Exception: command id not valid
     """
-    if type(commandId) != int or (commandId < 1 or commandId > 16):
+    try:
+        commandId = int(commandId)
+    except:
+        raise Exception("Comanda invalida!")
+    if (commandId < 1 or commandId > 16):
         raise Exception("Comanda invalida!")
 
 def ValidateExpense(expense):
@@ -21,5 +25,5 @@ def ValidateExpense(expense):
     Raises:
         Exception: expense not valid
     """
-    if type(expense["day"]) != int or type(expense["ammount"]) != float or type(expense["category"]) != str:
+    if type(expense) != dict or type(expense["day"]) != int or type(expense["ammount"]) != float or type(expense["category"]) != str:
         raise Exception("Cheltuiala invalida!")
