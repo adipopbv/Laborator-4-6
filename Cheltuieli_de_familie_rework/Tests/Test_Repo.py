@@ -25,6 +25,11 @@ def Test_AddToRepo():
     Repo.AddToRepo(repo, 2)
     assert repo[2] == 2
 
+def Test_RemoveFromRepo():
+    repo = [0,1]
+    Repo.RemoveFromRepo(repo, 1)
+    assert repo == [0]
+
 def Test_SwapInRepo():
     repo = [ 
         {

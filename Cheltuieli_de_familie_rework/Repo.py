@@ -24,11 +24,18 @@ def AddToRepo(repo, item):
     Args:
         repo (list): a repository to add to
         item (any type): an item to be added
-
-    Raises:
-        Exception: expense not found in repo
     """
     repo.append(item)
+
+def RemoveFromRepo(repo, item):
+    """
+    removes an item from a repository
+    
+    Args:
+        repo (list): a repo to remove from
+        item (any type): an item to be removed
+    """
+    repo.remove(item)
 
 def SwapInRepo(repo, originalItem, updatedItem):
     """
