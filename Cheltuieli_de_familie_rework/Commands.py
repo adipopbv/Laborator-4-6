@@ -39,9 +39,10 @@ def SearchExpensesGreaterThanAmmount():
                 expenses.append(expense)
         if expenses == []:
             IO.OutputText("Nici o cheltuiala corespunzatoare!")
-        IO.OutputText("Cheltuielile cerute sunt: ")
-        for expense in expenses:
-            IO.OutputExpense(expense)
+        else:
+            IO.OutputText("Cheltuielile cerute sunt: ")
+            for expense in expenses:
+                IO.OutputExpense(expense)
     except Exception as ex:
         IO.OutputException(ex)
 
@@ -57,7 +58,8 @@ def TotalAmmountForGivenCategory():
                 totalAmmount += Expenses.Ammount(expense)
         if totalAmmount == 0:
             IO.OutputText("Nici o cheltuiala corespunzatoare!")
-        IO.OutputText("Suma totala ceruta este: " + str(totalAmmount))
+        else:
+            IO.OutputText("Suma totala ceruta este: " + str(totalAmmount))
     except Exception as ex:
         IO.OutputException(ex)
 
@@ -77,6 +79,10 @@ def EraseExpensesOfGivenCategory():
     except Exception as ex:
         IO.OutputException(ex)
 
+def ExitApplication():
+
+    IO.OutputText("Iesire din aplicatie...")
+    exit()
 
 #---------------------------
     
@@ -86,5 +92,5 @@ commands = {
     "6": SearchExpensesGreaterThanAmmount,
     "9": TotalAmmountForGivenCategory,
     "13": EraseExpensesOfGivenCategory,
-    #"16": ExitApplication
+    "16": ExitApplication
 }

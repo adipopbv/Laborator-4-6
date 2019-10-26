@@ -42,9 +42,9 @@ def OutputExpense(expense):
     Args:
         expense (dictionary): an expense to be outputted
     """
-    Graphics.Display("day: " + str(expense.get("day")) + '\n' +
-                    "ammount" + str(expense.get("ammount")) + '\n' +
-                    "category: " + expense.get("category"))
+    Graphics.Display("ziua: " + str(expense.get("day")) + '\n' +
+                    "suma: " + str(expense.get("ammount")) + '\n' +
+                    "tipul cheltuielii: " + expense.get("category"))
     Graphics.EmptyLine()
 
 def GetCommandId():
@@ -115,7 +115,7 @@ def GetCategory():
         str: a category
     """
     try:
-        category = str(Input("Introduceti ziua dorita: "))
+        category = str(Input("Introduceti tipul de cheltuielii dorit: "))
         return category
     except Exception as ex:
         OutputException(ex)

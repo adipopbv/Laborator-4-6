@@ -3,6 +3,7 @@ import Repo
 def RunAllTests():
     Test_IndexOfItemInRepo()
     Test_AddToRepo()
+    Test_RemoveFromRepo()
     Test_SwapInRepo()
 
 def Test_IndexOfItemInRepo():
