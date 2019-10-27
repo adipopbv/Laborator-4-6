@@ -28,7 +28,9 @@ def UpdateExpense():
         IO.OutputException(ex)
 
 def EraseAllExpensesForGivenDay():
-
+    """
+    erases all expenses with the given day
+    """
     try:
         day = IO.GetDay()
         ok = False
