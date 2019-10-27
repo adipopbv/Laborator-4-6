@@ -41,6 +41,23 @@ def EraseAllExpensesForGivenDay():
     except Exception as ex:
         IO.OutputException(ex)
 
+def EraseExpensesForTimePeriod():
+
+    try:
+        IO.OutputText("Ziua de inceput: ")
+        startDay = IO.GetDay()
+        IO.OutputText("Ziua de sfarsit: ")
+        stopDay = IO.GetDay()
+        ok = False
+        for expense in Expenses.repo:
+            if Expenses.Day(expense) > startDay and Expenses.Day(expense) < stopDay:
+                ok = True
+                Repo.RemoveFromRepo(Expenses.repo, expense)
+        if ok == False:
+            IO.OutputText("Nici o cheltuiala corespunzatoare")
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def SearchExpensesGreaterThanAmmount():
     """
     searches for expenses greater than a given ammount
@@ -107,6 +124,7 @@ commands = {
     "1": AddNewExpense,
     "2": UpdateExpense,
     "3": EraseAllExpensesForGivenDay,
+    "4": EraseExpensesForTimePeriod,
     "6": SearchExpensesGreaterThanAmmount,
     "9": TotalAmmountForGivenCategory,
     "13": WithoutExpensesOfGivenCategory,
