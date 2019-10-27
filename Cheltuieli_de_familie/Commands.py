@@ -58,6 +58,16 @@ def EraseExpensesForTimePeriod():
     except Exception as ex:
         IO.OutputException(ex)
 
+def EraseAllExpensesOfGivenCategory():
+    """
+    erases all expenses from the given category
+    """
+    try:
+        category = IO.GetCategory()
+        Expenses.repo = [expense for expense in Expenses.repo if not Expenses.SameCategory(Expenses.Category(expense), category)]
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def SearchExpensesGreaterThanAmmount():
     """
     searches for expenses greater than a given ammount
@@ -125,6 +135,7 @@ commands = {
     "2": UpdateExpense,
     "3": EraseAllExpensesForGivenDay,
     "4": EraseExpensesForTimePeriod,
+    "5": EraseAllExpensesOfGivenCategory,
     "6": SearchExpensesGreaterThanAmmount,
     "9": TotalAmmountForGivenCategory,
     "13": WithoutExpensesOfGivenCategory,
