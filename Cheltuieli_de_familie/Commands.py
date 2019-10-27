@@ -63,19 +63,22 @@ def TotalAmmountForGivenCategory():
     except Exception as ex:
         IO.OutputException(ex)
 
-def EraseExpensesOfGivenCategory():
+def WithoutExpensesOfGivenCategory():
     """
     removes all expenses of given category
     """
     try:
         category = IO.GetCategory()
-        ok = False
+        expenses = []
         for expense in Expenses.repo:
-            if Expenses.SameCategory(Expenses.Category(expense), category):
-                ok = True
-                Repo.RemoveFromRepo(Expenses.repo, expense)
-        if ok == False:
+            if not Expenses.SameCategory(Expenses.Category(expense), category):
+                expenses.append(expense)
+        if expenses == []:
             IO.OutputText("Nici o cheltuiala corespunzatoare")
+        else:
+            IO.OutputText("Cheltuielile cerute sunt: ")
+            for expense in expenses:
+                IO.OutputExpense(expense)
     except Exception as ex:
         IO.OutputException(ex)
 
@@ -91,6 +94,6 @@ commands = {
     "2": UpdateExpense,
     "6": SearchExpensesGreaterThanAmmount,
     "9": TotalAmmountForGivenCategory,
-    "13": EraseExpensesOfGivenCategory,
+    "13": WithoutExpensesOfGivenCategory,
     "16": ExitApplication
 }
