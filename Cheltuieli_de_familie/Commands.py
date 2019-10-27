@@ -28,33 +28,25 @@ def UpdateExpense():
         IO.OutputException(ex)
 
 def EraseAllExpensesForGivenDay():
-
+    """
+    erases expenses from the given day
+    """
     try:
         day = IO.GetDay()
-        ok = False
-        for expense in Expenses.repo:
-            if Expenses.SameDay(Expenses.Day(expense), day):
-                ok = True
-                Repo.RemoveFromRepo(Expenses.repo, expense)
-        if ok == False:
-            IO.OutputText("Nici o cheltuiala corespunzatoare")
+        Expenses.repo = [expense for expense in Expenses.repo if not Expenses.SameDay(Expenses.Day(expense), day)]
     except Exception as ex:
         IO.OutputException(ex)
 
 def EraseExpensesForTimePeriod():
-
+    """
+    erases all expenses from the given time period
+    """
     try:
         IO.OutputText("Ziua de inceput: ")
         startDay = IO.GetDay()
         IO.OutputText("Ziua de sfarsit: ")
         stopDay = IO.GetDay()
-        ok = False
-        for expense in Expenses.repo:
-            if Expenses.Day(expense) > startDay and Expenses.Day(expense) < stopDay:
-                ok = True
-                Repo.RemoveFromRepo(Expenses.repo, expense)
-        if ok == False:
-            IO.OutputText("Nici o cheltuiala corespunzatoare")
+        Expenses.repo = [expense for expense in Expenses.repo if not (Expenses.Day(expense) >= startDay and Expenses.Day(expense) <= stopDay)]
     except Exception as ex:
         IO.OutputException(ex)
 
