@@ -27,6 +27,20 @@ def UpdateExpense():
     except Exception as ex:
         IO.OutputException(ex)
 
+def EraseAllExpensesForGivenDay():
+
+    try:
+        day = IO.GetDay()
+        ok = False
+        for expense in Expenses.repo:
+            if Expenses.SameDay(Expenses.Day(expense), day):
+                ok = True
+                Repo.RemoveFromRepo(Expenses.repo, expense)
+        if ok == False:
+            IO.OutputText("Nici o cheltuiala corespunzatoare")
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def SearchExpensesGreaterThanAmmount():
     """
     searches for expenses greater than a given ammount
@@ -92,6 +106,7 @@ def ExitApplication():
 commands = {
     "1": AddNewExpense,
     "2": UpdateExpense,
+    "3": EraseAllExpensesForGivenDay,
     "6": SearchExpensesGreaterThanAmmount,
     "9": TotalAmmountForGivenCategory,
     "13": WithoutExpensesOfGivenCategory,

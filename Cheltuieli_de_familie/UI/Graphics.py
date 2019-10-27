@@ -31,7 +31,7 @@ def DisplayCommands():
     "     [1]: Adauga o noua cheltuiala;\n" +
     "     [2]: Actualizeaza o cheltuiala;\n" +
     "Stergere:\n" +
-    "     #[3]: Sterge toate cheltuielile dintr-o zi;\n" +
+    "     [3]: Sterge toate cheltuielile dintr-o zi;\n" +
     "     #[4]: Sterge toate cheltuielile dintr-un interval de zile;\n" +
     "     #[5]: Sterge toate cheltuielile de un anumit tip;\n" +
     "Cautari:\n" +
