@@ -29,6 +29,36 @@ def GreaterAmmount(firstAmmount, secondAmmount):
         return True
     return False
 
+def SameDay(firstDay, secondDay):
+    """
+    compares the 2 days. if they are the same it returns true
+    
+    Args:
+        firstDay (int): first day
+        secondDay (int): second day
+    
+    Returns:
+        bool: true or false
+    """
+    if firstDay == secondDay:
+        return True
+    return False
+
+def SameAmmount(firstAmmount, secondAmmount):
+    """
+    compares the 2 ammounts. if they are the same it returns true
+    
+    Args:
+        firstAmmount (float): first ammount
+        secondAmmount (float): second ammount
+    
+    Returns:
+        bool: true or false
+    """
+    if firstAmmount == secondAmmount:
+        return True
+    return False
+
 def SameCategory(firstCategory, secondCategory):
     """
     compares the 2 categories. if they are the same it returns true
