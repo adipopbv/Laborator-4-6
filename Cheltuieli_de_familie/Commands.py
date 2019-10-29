@@ -79,6 +79,21 @@ def SearchExpensesGreaterThanAmmount():
     except Exception as ex:
         IO.OutputException(ex)
 
+def SearchExpensesBeforeGivenDayAndLessThanAmmount():
+
+    try:
+        day = IO.GetDay()
+        ammount = IO.GetAmmount()
+        expenses = [expense for expense in Expenses.repo if Expenses.Day(expense) < day and Expenses.Ammount(expense) < ammount]
+        if expenses == []:
+            IO.OutputText("Nici o cheltuiala corespunzatoare!")
+        else:
+            IO.OutputText("Cheltuielile cerute sunt: ")
+            for expense in expenses:
+                IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def TotalAmmountForGivenCategory():
     """
     gets total ammount for a given expenses category
@@ -129,6 +144,7 @@ commands = {
     "4": EraseExpensesForTimePeriod,
     "5": EraseAllExpensesOfGivenCategory,
     "6": SearchExpensesGreaterThanAmmount,
+    "7": SearchExpensesBeforeGivenDayAndLessThanAmmount,
     "9": TotalAmmountForGivenCategory,
     "13": WithoutExpensesOfGivenCategory,
     "16": ExitApplication

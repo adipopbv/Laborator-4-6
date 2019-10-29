@@ -36,7 +36,7 @@ def DisplayCommands():
     "     [5]: Sterge toate cheltuielile de un anumit tip;\n" +
     "Cautari:\n" +
     "     [6]: Cauta toate cheltuielile mai mari decat o anumita suma;\n" +
-    "     #[7]: Cauta toate cheltuielile efectuate inainte de o zi anume si mai mici decat o anumita suma;\n" +
+    "     [7]: Cauta toate cheltuielile efectuate inainte de o zi anume si mai mici decat o anumita suma;\n" +
     "     #[8]: Cauta toate cheltuielile de un anumit tip;\n" +
     "Rapoarte:\n" +
     "     [9]: Afiseaza suma totala pentru un anumit tip de cheltuieli;\n" +
