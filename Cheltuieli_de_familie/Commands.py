@@ -80,7 +80,9 @@ def SearchExpensesGreaterThanAmmount():
         IO.OutputException(ex)
 
 def SearchExpensesBeforeGivenDayAndLessThanAmmount():
-
+    """
+    searches all expense before a given day and less than a given ammount
+    """
     try:
         day = IO.GetDay()
         ammount = IO.GetAmmount()
