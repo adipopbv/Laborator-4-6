@@ -42,7 +42,7 @@ def DisplayCommands():
     "     [9]: Afiseaza suma totala pentru un anumit tip de cheltuieli;\n" +
     "    [10]: Afiseaza ziua cu suma cheltuita maxima;\n" +
     "    [11]: Afiseaza toate cheltuielile ce au o anumita suma;\n" +
-    "    #[12]: Afiseaza toate cheltuielile sortate dupa tip;\n" +
+    "    [12]: Afiseaza toate cheltuielile sortate dupa tip;\n" +
     "Filtrare:\n" +
     "    [13]: Elimina toate cheltuielile de un anumit tip;\n" +
     "    #[14]: Elimina toate cheltuielile mai mici decat o suma data;\n" +
