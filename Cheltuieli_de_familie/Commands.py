@@ -96,6 +96,21 @@ def SearchExpensesBeforeGivenDayAndLessThanAmmount():
     except Exception as ex:
         IO.OutputException(ex)
 
+def SearchAllExpensesOfGivenCategory():
+    """
+    searches all expenses of given category
+    """
+    try:
+        category = IO.GetCategory()
+        expenses = [expense for expense in Expenses.repo if Expenses.SameCategory(Expenses.Category(expense), category)]
+        if expenses == []:
+            IO.OutputText("Nici o cheltuiala corespunzatoare!")
+        else:
+            for expense in expenses:
+                IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def TotalAmmountForGivenCategory():
     """
     gets total ammount for a given expenses category
@@ -128,21 +143,6 @@ def DayWithGreatestAmmount():
             IO.OutputText("Lista de cheltuieli este goala!")
         else:
             IO.OutputText("Ziua ceruta este: " + str(day))
-    except Exception as ex:
-        IO.OutputException(ex)
-
-def SearchAllExpensesOfGivenCategory():
-    """
-    gets all expenses of given category
-    """
-    try:
-        category = IO.GetCategory()
-        expenses = [expense for expense in Expenses.repo if Expenses.SameCategory(Expenses.Category(expense), category)]
-        if expenses == []:
-            IO.OutputText("Nici o cheltuiala corespunzatoare!")
-        else:
-            for expense in expenses:
-                IO.OutputExpense(expense)
     except Exception as ex:
         IO.OutputException(ex)
 
