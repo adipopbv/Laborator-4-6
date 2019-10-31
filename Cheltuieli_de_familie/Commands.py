@@ -131,7 +131,7 @@ def DayWithGreatestAmmount():
     except Exception as ex:
         IO.OutputException(ex)
 
-def GetAllExpensesOfGivenCategory():
+def SearchAllExpensesOfGivenCategory():
     """
     gets all expenses of given category
     """
@@ -180,7 +180,7 @@ commands = {
     "5": EraseAllExpensesOfGivenCategory,
     "6": SearchExpensesGreaterThanAmmount,
     "7": SearchExpensesBeforeGivenDayAndLessThanAmmount,
-    "8": GetAllExpensesOfGivenCategory,
+    "8": SearchAllExpensesOfGivenCategory,
     "9": TotalAmmountForGivenCategory,
     "10": DayWithGreatestAmmount,
     "13": WithoutExpensesOfGivenCategory,
