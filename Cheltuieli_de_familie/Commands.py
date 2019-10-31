@@ -131,6 +131,21 @@ def DayWithGreatestAmmount():
     except Exception as ex:
         IO.OutputException(ex)
 
+def ExpensesWithGivenAmmount():
+    """
+    gets expenses with the given ammount
+    """
+    try:
+        ammount = IO.GetAmmount()
+        expenses = [expense for expense in Expenses.repo if Expenses.SameAmmount(Expenses.Ammount(expense), ammount)]
+        if expenses == []:
+            IO.OutputText("Nici o cheltuiala corespunzatoare!")
+        else:
+            for expense in expenses:
+                IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def GetAllExpensesOfGivenCategory():
     """
     gets all expenses of given category
@@ -183,6 +198,7 @@ commands = {
     "8": GetAllExpensesOfGivenCategory,
     "9": TotalAmmountForGivenCategory,
     "10": DayWithGreatestAmmount,
+    "11": ExpensesWithGivenAmmount,
     "13": WithoutExpensesOfGivenCategory,
     "16": ExitApplication
 }
