@@ -211,6 +211,21 @@ def WithoutExpensesOfGivenCategory():
     except Exception as ex:
         IO.OutputException(ex)
 
+def WithoutExpensesLessThanGivenAmmount():
+    """
+    removes all expenses less than the given ammount
+    """
+    try:
+        ammount = IO.GetAmmount()
+        expenses = [expense for expense in Expenses.repo if Expenses.Ammount(expense) >= ammount]
+        if expenses == []:
+            IO.OutputText("Nici o cheltuiala corespunzatoare!")
+            return
+        for expense in expenses:
+            IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def ExitApplication():
 
     IO.OutputText("Iesire din aplicatie...")
@@ -232,5 +247,6 @@ commands = {
     "11": ExpensesWithGivenAmmount,
     "12": ExpensesSortedByCategory,
     "13": WithoutExpensesOfGivenCategory,
+    "14": WithoutExpensesLessThanGivenAmmount,
     "16": ExitApplication
 }
