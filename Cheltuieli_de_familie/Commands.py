@@ -162,7 +162,9 @@ def ExpensesWithGivenAmmount():
         IO.OutputException(ex)
 
 def ExpensesSortedByCategory():
-
+    """
+    gets expenses sorted by category
+    """
     try:
         category = lambda expense : expense["category"]
         expenses = sorted(Expenses.repo, key = category)
