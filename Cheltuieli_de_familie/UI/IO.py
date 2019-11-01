@@ -47,6 +47,12 @@ def OutputExpense(expense):
                     "tipul cheltuielii: " + expense.get("category"))
     Graphics.EmptyLine()
 
+def OperationSuccesful():
+    """
+    outputs succesful operation
+    """
+    Graphics.Display("Operatie reusita!")
+
 def GetCommandId():
     """
     gets a command id from the user
