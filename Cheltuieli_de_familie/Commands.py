@@ -14,6 +14,7 @@ def AddNewExpense():
         Repo.AddToRepo(Expenses.repo, expense)
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def UpdateExpense():
     """
@@ -26,6 +27,7 @@ def UpdateExpense():
         Repo.SwapInRepo(Expenses.repo, originalExpense, updatedExpense)
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def EraseAllExpensesForGivenDay():
     """
@@ -36,6 +38,7 @@ def EraseAllExpensesForGivenDay():
         Expenses.repo = [expense for expense in Expenses.repo if not Expenses.SameDay(Expenses.Day(expense), day)]
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def EraseExpensesForTimePeriod():
     """
@@ -49,6 +52,7 @@ def EraseExpensesForTimePeriod():
         Expenses.repo = [expense for expense in Expenses.repo if not (Expenses.Day(expense) >= startDay and Expenses.Day(expense) <= stopDay)]
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def EraseAllExpensesOfGivenCategory():
     """
@@ -59,6 +63,7 @@ def EraseAllExpensesOfGivenCategory():
         Expenses.repo = [expense for expense in Expenses.repo if not Expenses.SameCategory(Expenses.Category(expense), category)]
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def SearchExpensesGreaterThanAmmount():
     """
@@ -226,6 +231,14 @@ def WithoutExpensesLessThanGivenAmmount():
     except Exception as ex:
         IO.OutputException(ex)
 
+def UndoLastOperation():
+
+    try:
+        Expenses.repo = Repo.CloneRepo(Expenses.historyRepo[-2])
+        Repo.RemoveFromRepo(Expenses.historyRepo, Expenses.historyRepo[-1])
+    except Exception as ex:
+        IO.OutputException(ex)
+
 def ExitApplication():
 
     IO.OutputText("Iesire din aplicatie...")
@@ -248,5 +261,6 @@ commands = {
     "12": ExpensesSortedByCategory,
     "13": WithoutExpensesOfGivenCategory,
     "14": WithoutExpensesLessThanGivenAmmount,
+    "15": UndoLastOperation,
     "16": ExitApplication
 }

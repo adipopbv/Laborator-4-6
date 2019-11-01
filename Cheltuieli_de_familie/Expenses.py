@@ -1,4 +1,5 @@
 repo = []
+historyRepo = []
 
 def MakeExpense(day, ammount, category):
     """

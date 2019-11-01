@@ -5,6 +5,7 @@ def RunAllTests():
     Test_AddToRepo()
     Test_RemoveFromRepo()
     Test_SwapInRepo()
+    Test_CloneRepo()
 
 def Test_IndexOfItemInRepo():
     repo = [
@@ -41,3 +42,16 @@ def Test_SwapInRepo():
     ]
     Repo.SwapInRepo(repo, {"day":2,"ammount":3.0,"category":"altele"}, {"day":3,"ammount":4.0,"category":"altele"})
     assert repo == [{"day":3,"ammount":4.0,"category":"altele"}]
+
+def Test_CloneRepo():
+    repo = [ 
+        {
+            "day": 2,
+            "ammount": 3.0,
+            "category": "altele"
+        }
+    ]
+    newRepo = Repo.CloneRepo(repo)
+    assert newRepo == repo
+    newRepo[0]["day"] = 3
+    assert not newRepo == repo

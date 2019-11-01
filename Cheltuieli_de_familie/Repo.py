@@ -53,3 +53,25 @@ def SwapInRepo(repo, originalItem, updatedItem):
         repo[IndexOfItemInRepo(repo, originalItem)] = updatedItem
     except Exception as ex:
         raise Exception(ex)
+
+def CloneRepo(repo):
+    """
+    clones a repo
+    
+    Args:
+        repo (list): a repo
+    
+    Raises:
+        Exception: any exception
+    
+    Returns:
+        list: a copy of the repo
+    """
+    try:
+        repoClone = []
+        for item in repo:
+            itemClone = item.copy()
+            repoClone.append(itemClone)
+        return repoClone
+    except Exception as ex:
+        raise Exception(ex)
