@@ -1,18 +1,20 @@
 from UI import IO
 from UI import Graphics
-import Commands
+import Service
 
 from Tests import Test_Repo
 from Tests import Test_Expenses
 from Tests import Test_Validator
+from Tests import Test_Commands
 
 def RunAllTests():
     """
     runs all asserting tests in the project
     """
-    Test_Repo.RunAllTests()
     Test_Expenses.RunAllTests()
+    Test_Repo.RunAllTests()
     Test_Validator.RunAllTests()
+    Test_Commands.RunAllTests()
 
 def RunApplication():
     """
@@ -22,7 +24,7 @@ def RunApplication():
     while True:
         Graphics.DisplayMenu()
         commandId = IO.GetCommandId()
-        Commands.DoCommandWithId(commandId)
+        Service.DoFunctionalityWithId(commandId)
 
 RunAllTests()
 RunApplication()

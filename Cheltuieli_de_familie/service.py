@@ -1,5 +1,7 @@
 import Commands
 from UI import IO
+import Repo
+import Expenses
 
 def DoFunctionalityWithId(funcId):
     """
@@ -8,6 +10,9 @@ def DoFunctionalityWithId(funcId):
     Args:
         commandId (int): a functionality id
     """
+    if Expenses.repo == [] or Expenses.historyRepo == []:
+        Expenses.repo = Repo.MakeRepo()
+        Expenses.historyRepo = Repo.MakeRepo()
     functionalities[funcId]()
 
 #---------------------------
@@ -17,10 +22,11 @@ def AddNewExpense():
     adds a new expense to the expenses repository
     """
     try:
-        Commands.AddNewExpense(IO.GetExpense())
+        Commands.AddNewExpense(Expenses.repo, IO.GetExpense())
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def UpdateExpense():
     """
@@ -30,10 +36,11 @@ def UpdateExpense():
         originalExpense = IO.GetExpense()
         IO.OutputText("De inlocuit cu...")
         updatedExpense = IO.GetExpense()
-        Commands.UpdateExpense(originalExpense, updatedExpense)
+        Commands.UpdateExpense(Expenses.repo, originalExpense, updatedExpense)
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def EraseAllExpensesForGivenDay():
     """
@@ -41,10 +48,11 @@ def EraseAllExpensesForGivenDay():
     """
     try:
         day = IO.GetDay()
-        Commands.EraseAllExpensesForGivenDay(day)
+        Commands.EraseAllExpensesForGivenDay(Expenses.repo, day)
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
     
 def EraseExpensesForTimePeriod():
     """
@@ -55,28 +63,30 @@ def EraseExpensesForTimePeriod():
         startDay = IO.GetDay()
         IO.OutputText("Ziua de sfarsit: ")
         stopDay = IO.GetDay()
-        Commands.EraseExpensesForTimePeriod(startDay, stopDay)
+        Commands.EraseExpensesForTimePeriod(Expenses.repo, startDay, stopDay)
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def EraseAllExpensesOfGivenCategory():
     """
     erases all expenses of the given category
     """
     try:
-        Commands.EraseAllExpensesOfGivenCategory(IO.GetCategory())
+        Commands.EraseAllExpensesOfGivenCategory(Expenses.repo, IO.GetCategory())
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def SearchExpensesGreaterThanAmmount():
     """
     searches for expenses greater than a given ammount
     """
     try:
-        expenses = Commands.SearchExpensesGreaterThanAmmount(IO.GetAmmount())
-        if expenses == []:
+        expenses = Commands.SearchExpensesGreaterThanAmmount(Expenses.repo, IO.GetAmmount())
+        if expenses == Repo.MakeRepo():
             IO.OutputText("Nici o cheltuiala corespunzatoare!")
         else:
             IO.OutputText("Cheltuielile cerute sunt: ")
@@ -90,8 +100,8 @@ def SearchExpensesBeforeGivenDayAndLessThanAmmount():
     searches all expense before a given day and less than a given ammount
     """
     try:
-        expenses = Commands.SearchExpensesBeforeGivenDayAndLessThanAmmount(IO.GetDay(), IO.GetAmmount())
-        if expenses == []:
+        expenses = Commands.SearchExpensesBeforeGivenDayAndLessThanAmmount(Expenses.repo, IO.GetDay(), IO.GetAmmount())
+        if expenses == Repo.MakeRepo():
             IO.OutputText("Nici o cheltuiala corespunzatoare!")
         else:
             IO.OutputText("Cheltuielile cerute sunt: ")
@@ -105,14 +115,99 @@ def SearchAllExpensesOfGivenCategory():
     searches all expenses of given category
     """
     try:
-        expenses = Commands.SearchAllExpensesOfGivenCategory(IO.GetCategory())
-        if expenses == []:
+        expenses = Commands.SearchAllExpensesOfGivenCategory(Expenses.repo, IO.GetCategory())
+        if expenses == Repo.MakeRepo():
             IO.OutputText("Nici o cheltuiala corespunzatoare!")
         else:
             for expense in expenses:
                 IO.OutputExpense(expense)
     except Exception as ex:
         IO.OutputException(ex)
+
+def TotalAmmountForGivenCategory():
+
+    try:
+        totalAmmount = Commands.TotalAmmountForGivenCategory(Expenses.repo, IO.GetCategory())
+        if totalAmmount == 0:
+            IO.OutputText("Nici o cheltuiala corespunzatoare!")
+        else:
+            IO.OutputText("Suma totala ceruta este: " + str(totalAmmount))
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def DayWithGreatestAmmount():
+
+    try:
+        day = Commands.DayWithGreatestAmmount(Expenses.repo)
+        if day == None:
+            IO.OutputText("Lista de cheltuieli este goala!")
+        else:
+            IO.OutputText("Ziua ceruta este: " + str(day))
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def ExpensesWithGivenAmmount():
+    
+    try:
+        expenses = Commands.ExpensesWithGivenAmmount(Expenses.repo, IO.GetAmmount())
+        if expenses == Repo.MakeRepo():
+            IO.OutputText("Nici o cheltuiala corespunzatoare!")
+        else:
+            for expense in expenses:
+                IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def ExpensesSortedByCategory():
+
+    try:
+        expenses = Commands.ExpensesSortedByCategory(Expenses.repo)
+        if expenses == {}:
+            IO.OutputText("Nici o cheltuiala in lista!")
+            return
+        IO.OutputText("Cheltuielile cerute sunt: ")
+        for expense in expenses:
+            IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def WithoutExpensesOfGivenCategory():
+
+    try:
+        expenses = Commands.WithoutExpensesOfGivenCategory(Expenses.repo, IO.GetCategory())
+        if expenses == Repo.MakeRepo():
+            IO.OutputText("Nici o cheltuiala corespunzatoare")
+        else:
+            IO.OutputText("Cheltuielile cerute sunt: ")
+            for expense in expenses:
+                IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def WithoutExpensesLessThanGivenAmmount():
+
+    try:
+        expenses = Commands.WithoutExpensesLessThanGivenAmmount(Expenses.repo, IO.GetCategory())
+        if expenses == Repo.MakeRepo():
+            IO.OutputText("Nici o cheltuiala corespunzatoare!")
+            return
+        for expense in expenses:
+            IO.OutputExpense(expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def UndoLastOperation():
+
+    try:
+        Commands.UndoLastOperation()
+        IO.OperationSuccesful()
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def ExitApplication():
+
+    IO.OutputText("Iesire din aplicatie...")
+    Commands.ExitApplication()
 
 functionalities = {
     "1": AddNewExpense,

@@ -2,11 +2,17 @@ import Repo
 import Expenses
 
 def RunAllTests():
+    Test_MakeRepo()
     Test_IndexOfItemInRepo()
     Test_AddToRepo()
     Test_RemoveFromRepo()
     Test_SwapInRepo()
     Test_CloneRepo()
+
+def Test_MakeRepo():
+    repo = Repo.MakeRepo(Expenses.MakeExpense(2,3,"4"), Expenses.MakeExpense(3,4,"5"))
+    assert repo == [Expenses.MakeExpense(2,3,"4"), Expenses.MakeExpense(3,4,"5")]
+    assert not repo == [Expenses.MakeExpense(3,34,"6")]
 
 def Test_IndexOfItemInRepo():
     repo = [0, 1]

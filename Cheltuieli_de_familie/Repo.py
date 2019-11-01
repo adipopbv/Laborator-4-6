@@ -1,3 +1,20 @@
+def MakeRepo(*items):
+    """
+    makes a new repository
+    
+    Returns:
+        list: a new repo
+    """
+    repo = []
+    if len(items) > 0:
+        if type(items[0]) == list:
+            for item in items[0]:
+                AddToRepo(repo, item)
+            return repo
+    for item in items:
+        AddToRepo(repo, item)
+    return repo
+
 def IndexOfItemInRepo(repo, item):
     """
     searches the index of an item in a repository

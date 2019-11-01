@@ -47,7 +47,7 @@ def DisplayCommands():
     "    [13]: Elimina toate cheltuielile de un anumit tip;\n" +
     "    [14]: Elimina toate cheltuielile mai mici decat o suma data;\n" +
     "Anulare:\n" +
-    "    #[15]: Anuleaza ultima operatie efectuata asupra cheltuielilor;\n" +
+    "    [15]: Anuleaza ultima operatie efectuata asupra cheltuielilor;\n" +
     "\n[16]: Iesire din aplicatie.")
     EmptyLine()
 

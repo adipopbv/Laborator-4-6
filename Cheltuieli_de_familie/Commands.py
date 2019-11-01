@@ -1,7 +1,7 @@
 import Repo
 import Expenses
 
-def AddNewExpense(expense):
+def AddNewExpense(repo, expense):
     """
     adds a new expense to the repository
     
@@ -12,12 +12,12 @@ def AddNewExpense(expense):
         Exception: expense not added to the repo
     """
     try:
-        Repo.AddToRepo(Expenses.repo, expense)
+        Repo.AddToRepo(repo, expense)
+        return repo
     except Exception as ex:
         raise Exception(ex)
-    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
-def UpdateExpense(originalExpense, updatedExpense):
+def UpdateExpense(repo, originalExpense, updatedExpense):
     """
         updates an expense to a new state
     
@@ -29,12 +29,12 @@ def UpdateExpense(originalExpense, updatedExpense):
         Exception: expense not updated
     """
     try:
-        Repo.SwapInRepo(Expenses.repo, originalExpense, updatedExpense)
+        Repo.SwapInRepo(repo, originalExpense, updatedExpense)
+        return repo
     except Exception as ex:
        raise Exception(ex)
-    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
-def EraseAllExpensesForGivenDay(day):
+def EraseAllExpensesForGivenDay(repo, day):
     """
     erases expenses from the given day
     
@@ -45,14 +45,14 @@ def EraseAllExpensesForGivenDay(day):
         Exception: expenses not erased
     """
     try:
-        Expenses.repo = [expense for expense in Expenses.repo if not Expenses.SameDay(Expenses.Day(expense), day)]
+        expenses = [expense for expense in repo if not Expenses.SameDay(Expenses.Day(expense), day)]
+        return Repo.MakeRepo(expenses)
     except Exception as ex:
         raise Exception(ex)
-    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
-def EraseExpensesForTimePeriod(startDay, stopDay):
+def EraseExpensesForTimePeriod(repo, startDay, stopDay):
     """
-    erases all expenses from teh given time period
+    erases all expenses from the given time period
     
     Args:
         startDay (int): start day
@@ -62,12 +62,12 @@ def EraseExpensesForTimePeriod(startDay, stopDay):
         Exception: expenses not erased
     """
     try:
-        Expenses.repo = [expense for expense in Expenses.repo if not (Expenses.Day(expense) >= startDay and Expenses.Day(expense) <= stopDay)]
+        repo = Repo.MakeRepo(expense for expense in repo if not (Expenses.Day(expense) >= startDay and Expenses.Day(expense) <= stopDay))
+        return repo
     except Exception as ex:
         raise Exception(ex)
-    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
-def EraseAllExpensesOfGivenCategory(category):
+def EraseAllExpensesOfGivenCategory(repo, category):
     """
     erases all expenses from the given time period
     
@@ -78,12 +78,12 @@ def EraseAllExpensesOfGivenCategory(category):
         Exception: expanses not erased
     """
     try:
-        Expenses.repo = [expense for expense in Expenses.repo if not Expenses.SameCategory(Expenses.Category(expense), category)]
+        repo = Repo.MakeRepo(expense for expense in repo if not Expenses.SameCategory(Expenses.Category(expense), category))
+        return repo
     except Exception as ex:
         raise Exception(ex)
-    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
-def SearchExpensesGreaterThanAmmount(ammount):
+def SearchExpensesGreaterThanAmmount(repo, ammount):
     """
     searches for expenses greater than a given ammount
     
@@ -97,12 +97,12 @@ def SearchExpensesGreaterThanAmmount(ammount):
         list: list of expenses
     """
     try:
-        expenses = [expense for expense in Expenses.repo if Expenses.GreaterAmmount(Expenses.Ammount(expense), ammount)]
+        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.GreaterAmmount(Expenses.Ammount(expense), ammount))
         return expenses
     except Exception as ex:
         raise Exception(ex)
 
-def SearchExpensesBeforeGivenDayAndLessThanAmmount(day, ammount):
+def SearchExpensesBeforeGivenDayAndLessThanAmmount(repo, day, ammount):
     """
     searches all expense before a given day and less than a given ammount
     
@@ -117,12 +117,12 @@ def SearchExpensesBeforeGivenDayAndLessThanAmmount(day, ammount):
         list: list of expenses
     """
     try:
-        expenses = [expense for expense in Expenses.repo if Expenses.Day(expense) < day and Expenses.Ammount(expense) < ammount]
+        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.Day(expense) < day and Expenses.Ammount(expense) < ammount)
         return expenses
     except Exception as ex:
         raise Exception(ex)
 
-def SearchAllExpensesOfGivenCategory(category):
+def SearchAllExpensesOfGivenCategory(repo, category):
     """
     searches all expenses of given category
     
@@ -136,135 +136,156 @@ def SearchAllExpensesOfGivenCategory(category):
         list: list of expenses
     """
     try:
-        expenses = [expense for expense in Expenses.repo if Expenses.SameCategory(Expenses.Category(expense), category)]
+        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.SameCategory(Expenses.Category(expense), category))
         return expenses
     except Exception as ex:
         raise Exception(ex)
 
-def TotalAmmountForGivenCategory():
+def TotalAmmountForGivenCategory(repo, category):
     """
     gets total ammount for a given expenses category
+    
+    Args:
+        repo (list): a repository
+        category (str): a category
+    
+    Raises:
+        Exception: no expense with the given category
+    
+    Returns:
+        int: total ammount
     """
     try:
-        category = IO.GetCategory()
         totalAmmount = 0
-        for expense in Expenses.repo:
+        for expense in repo:
             if Expenses.SameCategory(Expenses.Category(expense), category):
                 totalAmmount += Expenses.Ammount(expense)
-        if totalAmmount == 0:
-            IO.OutputText("Nici o cheltuiala corespunzatoare!")
-        else:
-            IO.OutputText("Suma totala ceruta este: " + str(totalAmmount))
+        return totalAmmount
     except Exception as ex:
-        IO.OutputException(ex)
+        raise Exception(ex)
 
-def DayWithGreatestAmmount():
+def DayWithGreatestAmmount(repo):
     """
     gets the day with the greatest ammount
-    """
+    
+    Args:
+        repo (list): a repository
+    
+    Raises:
+        Exception: no expense in repo
+    
+    Returns:
+        int: day with greatest ammount
+    """ 
     try:
         day = None
         maxAmmount = -0.1
-        for expense in Expenses.repo:
+        for expense in repo:
             if Expenses.Ammount(expense) > maxAmmount:
                 maxAmmount = Expenses.Ammount(expense)
                 day = Expenses.Day(expense)
-        if day == None:
-            IO.OutputText("Lista de cheltuieli este goala!")
-        else:
-            IO.OutputText("Ziua ceruta este: " + str(day))
+        return day
     except Exception as ex:
-        IO.OutputException(ex)
+        raise Exception(ex)
 
-def ExpensesWithGivenAmmount():
+def ExpensesWithGivenAmmount(repo, ammount):
     """
     gets expenses with the given ammount
+    
+    Args:
+        repo (list): a repository
+        ammount (float): an ammount
+    
+    Raises:
+        Exception: no expense in repo
+    
+    Returns:
+        list: expenses with given ammount
     """
     try:
-        ammount = IO.GetAmmount()
-        expenses = [expense for expense in Expenses.repo if Expenses.SameAmmount(Expenses.Ammount(expense), ammount)]
-        if expenses == []:
-            IO.OutputText("Nici o cheltuiala corespunzatoare!")
-        else:
-            for expense in expenses:
-                IO.OutputExpense(expense)
+        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.SameAmmount(Expenses.Ammount(expense), ammount))
+        return expenses
     except Exception as ex:
-        IO.OutputException(ex)
+        raise Exception(ex)
 
-def ExpensesSortedByCategory():
+def ExpensesSortedByCategory(repo):
     """
     gets expenses sorted by category
+    
+    Args:
+        repo (list): a repository
+    
+    Raises:
+        Exception: no expense in repo
+    
+    Returns:
+        list: sorted expenses by category
     """
     try:
-        category = lambda expense : expense["category"]
-        expenses = sorted(Expenses.repo, key = category)
-        if expenses == {}:
-            IO.OutputText("Nici o cheltuiala in lista!")
-            return
-        IO.OutputText("Cheltuielile cerute sunt: ")
-        for expense in expenses:
-            IO.OutputExpense(expense)
+        category = lambda expense : Expenses.Category(expense)
+        expenses = sorted(repo, key = category)
+        return expenses
     except Exception as ex:
-        IO.OutputException(ex)
+        raise Exception(ex)
 
-def GetAllExpensesOfGivenCategory():
-    """
-    gets all expenses of given category
-    """
-    try:
-        category = IO.GetCategory()
-        expenses = [expense for expense in Expenses.repo if Expenses.SameCategory(Expenses.Category(expense), category)]
-        if expenses == []:
-            IO.OutputText("Nici o cheltuiala corespunzatoare!")
-        else:
-            for expense in expenses:
-                IO.OutputExpense(expense)
-    except Exception as ex:
-        IO.OutputException(ex)
-
-def WithoutExpensesOfGivenCategory():
+def WithoutExpensesOfGivenCategory(repo, category):
     """
     removes all expenses of given category
+    
+    Args:
+        repo (list): a repo
+        category (str): a category
+    
+    Raises:
+        Exception: no expense in repo
+    
+    Returns:
+        list: repo without expenses of the given category
     """
     try:
-        category = IO.GetCategory()
-        expenses = []
-        for expense in Expenses.repo:
+        expenses = Repo.MakeRepo()
+        for expense in repo:
             if not Expenses.SameCategory(Expenses.Category(expense), category):
                 expenses.append(expense)
-        if expenses == []:
-            IO.OutputText("Nici o cheltuiala corespunzatoare")
-        else:
-            IO.OutputText("Cheltuielile cerute sunt: ")
-            for expense in expenses:
-                IO.OutputExpense(expense)
+        return expenses
     except Exception as ex:
-        IO.OutputException(ex)
+        raise Exception(ex)
 
-def WithoutExpensesLessThanGivenAmmount():
+def WithoutExpensesLessThanGivenAmmount(repo, ammount):
     """
     removes all expenses less than the given ammount
+    
+    Args:
+        repo (list): a repo
+        ammount (float): an ammount
+    
+    Raises:
+        Exception: no expense in repo
+    
+    Returns:
+        list: repo without expenses less than given ammount
     """
     try:
-        ammount = IO.GetAmmount()
-        expenses = [expense for expense in Expenses.repo if Expenses.Ammount(expense) >= ammount]
-        if expenses == []:
-            IO.OutputText("Nici o cheltuiala corespunzatoare!")
-            return
-        for expense in expenses:
-            IO.OutputExpense(expense)
+        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.Ammount(expense) >= ammount)
+        return expenses
     except Exception as ex:
-        IO.OutputException(ex)
+        raise Exception(ex)
 
 def UndoLastOperation():
-
+    """
+    rewinds the repo to its state before the last operation
+    
+    Raises:
+        Exception: no expense in repo
+    """
     try:
-        Expenses.repo = Repo.CloneRepo(Expenses.historyRepo[-2])
+        repo = Repo.CloneRepo(Expenses.historyRepo[-2])
         Repo.RemoveFromRepo(Expenses.historyRepo, Expenses.historyRepo[-1])
     except Exception as ex:
-        IO.OutputException(ex)
+        raise Exception(ex)
 
 def ExitApplication():
-
-    IO.OutputText("Iesire din aplicatie...")
+    """
+    exits app
+    """
     exit()
