@@ -38,7 +38,7 @@ def Test_EraseAllExpensesForGivenDay():
     expense1 = Expenses.MakeExpense(2,3.0,"altele")
     expense2 = Expenses.MakeExpense(3,4.0,"mancare")
     repo = Repo.MakeRepo(expense1, expense2)
-    Commands.EraseAllExpensesForGivenDay(repo, 2)
+    repo = Commands.EraseAllExpensesForGivenDay(repo, 2)
     assert repo == Repo.MakeRepo(expense2)
     assert not repo == Repo.MakeRepo(expense1, expense2)
 
@@ -46,14 +46,15 @@ def Test_EraseExpensesForTimePeriod():
     expense1 = Expenses.MakeExpense(2,3.0,"altele")
     expense2 = Expenses.MakeExpense(3,4.0,"mancare")
     repo = Repo.MakeRepo(expense1, expense2)
-    assert Commands.EraseExpensesForTimePeriod(repo, 2, 3) == Repo.MakeRepo(expense1)
-    assert not Commands.EraseExpensesForTimePeriod(repo, 2, 3) == Repo.MakeRepo(expense2)
+    repo = Commands.EraseExpensesForTimePeriod(repo, 1, 2)
+    assert repo == Repo.MakeRepo(expense2)
+    assert not repo == Repo.MakeRepo()
 
 def Test_EraseAllExpensesOfGivenCategory():
     expense1 = Expenses.MakeExpense(2,3.0,"altele")
     expense2 = Expenses.MakeExpense(3,4.0,"mancare")
     repo = Repo.MakeRepo(expense1, expense2)
-    Commands.EraseAllExpensesOfGivenCategory(repo, "altele")
+    repo = Commands.EraseAllExpensesOfGivenCategory(repo, "altele")
     assert repo == Repo.MakeRepo(expense2)
     assert not repo == Repo.MakeRepo(expense1)
 
@@ -62,7 +63,7 @@ def Test_SearchExpensesGreaterThanAmmount():
     expense2 = Expenses.MakeExpense(3,4.0,"mancare")
     repo = Repo.MakeRepo(expense1, expense2)
     assert Commands.SearchExpensesGreaterThanAmmount(repo, 3.0) == Repo.MakeRepo(expense2)
-    assert not Commands.SearchAllExpensesOfGivenCategory(repo, 3.0) == Repo.MakeRepo()
+    assert not Commands.SearchExpensesGreaterThanAmmount(repo, 3.0) == Repo.MakeRepo()
 
 def Test_SearchExpensesBeforeGivenDayAndLessThanAmmount():
     expense1 = Expenses.MakeExpense(2,3.0,"altele")

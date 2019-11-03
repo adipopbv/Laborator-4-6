@@ -62,7 +62,12 @@ def EraseExpensesForTimePeriod(repo, startDay, stopDay):
         Exception: expenses not erased
     """
     try:
-        repo = Repo.MakeRepo(expense for expense in repo if not (Expenses.Day(expense) >= startDay and Expenses.Day(expense) <= stopDay))
+        expenses = []
+        for expense in repo:
+            if Expenses.Day(expense) < startDay or Expenses.Day(expense) > stopDay:
+                expenses.append(expense)
+        #expenses = [expense for expense in repo if Expenses.Day(expense) < startDay or Expenses.Day(expense) > stopDay]
+        repo = Repo.MakeRepo(expenses)
         return repo
     except Exception as ex:
         raise Exception(ex)
@@ -78,7 +83,7 @@ def EraseAllExpensesOfGivenCategory(repo, category):
         Exception: expanses not erased
     """
     try:
-        repo = Repo.MakeRepo(expense for expense in repo if not Expenses.SameCategory(Expenses.Category(expense), category))
+        repo = Repo.MakeRepo([expense for expense in repo if not Expenses.SameCategory(Expenses.Category(expense), category)])
         return repo
     except Exception as ex:
         raise Exception(ex)
@@ -97,7 +102,8 @@ def SearchExpensesGreaterThanAmmount(repo, ammount):
         list: list of expenses
     """
     try:
-        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.GreaterAmmount(Expenses.Ammount(expense), ammount))
+        wantedExpenses = [expense for expense in repo if Expenses.GreaterAmmount(Expenses.Ammount(expense), ammount)]
+        expenses = Repo.MakeRepo(wantedExpenses)
         return expenses
     except Exception as ex:
         raise Exception(ex)
@@ -117,7 +123,7 @@ def SearchExpensesBeforeGivenDayAndLessThanAmmount(repo, day, ammount):
         list: list of expenses
     """
     try:
-        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.Day(expense) < day and Expenses.Ammount(expense) < ammount)
+        expenses = Repo.MakeRepo([expense for expense in repo if Expenses.Day(expense) < day and Expenses.Ammount(expense) < ammount])
         return expenses
     except Exception as ex:
         raise Exception(ex)
@@ -136,7 +142,7 @@ def SearchAllExpensesOfGivenCategory(repo, category):
         list: list of expenses
     """
     try:
-        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.SameCategory(Expenses.Category(expense), category))
+        expenses = Repo.MakeRepo([expense for expense in repo if Expenses.SameCategory(Expenses.Category(expense), category)])
         return expenses
     except Exception as ex:
         raise Exception(ex)
@@ -203,7 +209,7 @@ def ExpensesWithGivenAmmount(repo, ammount):
         list: expenses with given ammount
     """
     try:
-        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.SameAmmount(Expenses.Ammount(expense), ammount))
+        expenses = Repo.MakeRepo([expense for expense in repo if Expenses.SameAmmount(Expenses.Ammount(expense), ammount)])
         return expenses
     except Exception as ex:
         raise Exception(ex)
@@ -243,10 +249,7 @@ def WithoutExpensesOfGivenCategory(repo, category):
         list: repo without expenses of the given category
     """
     try:
-        expenses = Repo.MakeRepo()
-        for expense in repo:
-            if not Expenses.SameCategory(Expenses.Category(expense), category):
-                expenses.append(expense)
+        expenses = Repo.MakeRepo([expense for expense in repo if not Expenses.SameCategory(Expenses.Category(expense), category)])
         return expenses
     except Exception as ex:
         raise Exception(ex)
@@ -266,7 +269,7 @@ def WithoutExpensesLessThanGivenAmmount(repo, ammount):
         list: repo without expenses less than given ammount
     """
     try:
-        expenses = Repo.MakeRepo(expense for expense in repo if Expenses.Ammount(expense) >= ammount)
+        expenses = Repo.MakeRepo([expense for expense in repo if Expenses.Ammount(expense) >= ammount])
         return expenses
     except Exception as ex:
         raise Exception(ex)
@@ -279,7 +282,12 @@ def UndoLastOperation():
         Exception: no expense in repo
     """
     try:
-        repo = Repo.CloneRepo(Expenses.historyRepo[-2])
+        if len(Expenses.historyRepo) == 1:
+            Expenses.repo = Repo.MakeRepo()
+        elif len(Expenses.historyRepo) > 1:
+            Expenses.repo = Repo.CloneRepo(Expenses.historyRepo[-2])
+        else:
+            return
         Repo.RemoveFromRepo(Expenses.historyRepo, Expenses.historyRepo[-1])
     except Exception as ex:
         raise Exception(ex)

@@ -36,7 +36,7 @@ def UpdateExpense():
         originalExpense = IO.GetExpense()
         IO.OutputText("De inlocuit cu...")
         updatedExpense = IO.GetExpense()
-        Commands.UpdateExpense(Expenses.repo, originalExpense, updatedExpense)
+        Expenses.repo = Commands.UpdateExpense(Expenses.repo, originalExpense, updatedExpense)
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
@@ -48,7 +48,7 @@ def EraseAllExpensesForGivenDay():
     """
     try:
         day = IO.GetDay()
-        Commands.EraseAllExpensesForGivenDay(Expenses.repo, day)
+        Expenses.repo = Commands.EraseAllExpensesForGivenDay(Expenses.repo, day)
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
@@ -63,7 +63,7 @@ def EraseExpensesForTimePeriod():
         startDay = IO.GetDay()
         IO.OutputText("Ziua de sfarsit: ")
         stopDay = IO.GetDay()
-        Commands.EraseExpensesForTimePeriod(Expenses.repo, startDay, stopDay)
+        Expenses.repo = Commands.EraseExpensesForTimePeriod(Expenses.repo, startDay, stopDay)
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
@@ -74,7 +74,7 @@ def EraseAllExpensesOfGivenCategory():
     erases all expenses of the given category
     """
     try:
-        Commands.EraseAllExpensesOfGivenCategory(Expenses.repo, IO.GetCategory())
+        Expenses.repo = Commands.EraseAllExpensesOfGivenCategory(Expenses.repo, IO.GetCategory())
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
@@ -125,7 +125,9 @@ def SearchAllExpensesOfGivenCategory():
         IO.OutputException(ex)
 
 def TotalAmmountForGivenCategory():
-
+    """
+    gets the total ammount for the given category
+    """
     try:
         totalAmmount = Commands.TotalAmmountForGivenCategory(Expenses.repo, IO.GetCategory())
         if totalAmmount == 0:
@@ -136,7 +138,9 @@ def TotalAmmountForGivenCategory():
         IO.OutputException(ex)
 
 def DayWithGreatestAmmount():
-
+    """
+    gets the day with the greatest ammount
+    """
     try:
         day = Commands.DayWithGreatestAmmount(Expenses.repo)
         if day == None:
@@ -147,7 +151,9 @@ def DayWithGreatestAmmount():
         IO.OutputException(ex)
 
 def ExpensesWithGivenAmmount():
-    
+    """
+    gets all expenses with the given ammount
+    """
     try:
         expenses = Commands.ExpensesWithGivenAmmount(Expenses.repo, IO.GetAmmount())
         if expenses == Repo.MakeRepo():
@@ -159,7 +165,9 @@ def ExpensesWithGivenAmmount():
         IO.OutputException(ex)
 
 def ExpensesSortedByCategory():
-
+    """
+    gets all expenses sorted by category
+    """
     try:
         expenses = Commands.ExpensesSortedByCategory(Expenses.repo)
         if expenses == {}:
@@ -172,7 +180,9 @@ def ExpensesSortedByCategory():
         IO.OutputException(ex)
 
 def WithoutExpensesOfGivenCategory():
-
+    """
+    gets all expenses without the given category
+    """
     try:
         expenses = Commands.WithoutExpensesOfGivenCategory(Expenses.repo, IO.GetCategory())
         if expenses == Repo.MakeRepo():
@@ -185,9 +195,11 @@ def WithoutExpensesOfGivenCategory():
         IO.OutputException(ex)
 
 def WithoutExpensesLessThanGivenAmmount():
-
+    """
+    gets all expenses greater or equal with the given ammount
+    """
     try:
-        expenses = Commands.WithoutExpensesLessThanGivenAmmount(Expenses.repo, IO.GetCategory())
+        expenses = Commands.WithoutExpensesLessThanGivenAmmount(Expenses.repo, IO.GetAmmount())
         if expenses == Repo.MakeRepo():
             IO.OutputText("Nici o cheltuiala corespunzatoare!")
             return
@@ -197,7 +209,9 @@ def WithoutExpensesLessThanGivenAmmount():
         IO.OutputException(ex)
 
 def UndoLastOperation():
-
+    """
+    undo the last operation
+    """
     try:
         Commands.UndoLastOperation()
         IO.OperationSuccesful()
@@ -205,7 +219,9 @@ def UndoLastOperation():
         IO.OutputException(ex)
 
 def ExitApplication():
-
+    """
+    exits the application
+    """
     IO.OutputText("Iesire din aplicatie...")
     Commands.ExitApplication()
 
