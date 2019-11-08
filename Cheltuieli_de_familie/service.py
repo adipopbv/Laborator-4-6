@@ -15,6 +15,8 @@ def DoFunctionalityWithId(funcId):
         Expenses.historyRepo = Repo.MakeRepo()
     functionalities[funcId]()
 
+#---------------------------
+
 def DoCommand(command):
 
     try:
@@ -22,13 +24,13 @@ def DoCommand(command):
     except Exception as ex:
         IO.OutputException(ex)
 
-#---------------------------
 
 def Add(command):
 
     try:
         expense = Expenses.MakeExpense(command[1],command[2],command[3])
         Commands.AddNewExpense(Expenses.repo, expense)
+        IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
     Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
@@ -37,7 +39,8 @@ def Update(command):
     try:
         originalExpense = Expenses.MakeExpense(command[1],command[2],command[3])
         updatedExpense = Expenses.MakeExpense(command[5],command[6],command[7])
-        Commands.UpdateExpense(Expenses.repo, originalExpense, updatedExpense)
+        Expenses.repo = Commands.UpdateExpense(Expenses.repo, originalExpense, updatedExpense)
+        IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
     Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
@@ -45,17 +48,27 @@ def Update(command):
 def Erase(command):
     try:
         day = int(command[3])
-        Commands.EraseAllExpensesForGivenDay(Expenses.repo, day)
+        Expenses.repo = Commands.EraseAllExpensesForGivenDay(Expenses.repo, day)
+        IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
 
 def Filter(command):
     try:
         category = str(command[1])
-        Commands.WithoutExpensesOfGivenCategory(Expenses.repo, category)
+        expenses = Commands.WithoutExpensesOfGivenCategory(Expenses.repo, category)
+        if expenses == Repo.MakeRepo():
+            IO.OutputText("Nici o cheltuiala corespunzatoare")
+        else:
+            IO.OutputText("Cheltuielile cerute sunt: ")
+            for expense in expenses:
+                IO.OutputExpense(expense)
     except Exception as ex:
         IO.OutputException(ex)
     Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
+
+def Exit(command):
+    ExitApplication()
 
 #---------------------------
 
@@ -290,5 +303,6 @@ commands = {
     "adauga": Add,
     "actualizeaza": Update,
     "sterge": Erase,
-    "filtreaza": Filter
+    "filtreaza": Filter,
+    "iesire": Exit
 }

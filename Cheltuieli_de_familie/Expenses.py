@@ -13,7 +13,10 @@ def MakeExpense(day, ammount, category):
     Returns:
         dictionary: an expense
     """
-    return {"day": day, "ammount": ammount, "category": category}
+    try:
+        return {"day": int(day), "ammount": float(ammount), "category": str(category)}
+    except Exception as ex:
+        raise Exception(ex)
 
 def GreaterAmmount(firstAmmount, secondAmmount):
     """

@@ -31,7 +31,7 @@ def RunApplication():
         elif menuType == "2":
             Graphics.DisplayMenu2()
             command = IO.GetCommand()
-            command.split()
+            command = list(command.split())
             Service.DoCommand(command)
 
 RunAllTests()

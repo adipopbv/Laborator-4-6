@@ -57,7 +57,8 @@ def DisplayWritingCommands():
     Display("adauga [ziua] [suma] [categoria];\n" + 
     "actualizeaza [ziua] [suma] [categoria] cu [ziua noua] [suma noua] [categoria noua];\n" + 
     "sterge cheltuielile din [ziua];\n" + 
-    "filtreaza [suma minima].")
+    "filtreaza [suma minima];\n" + 
+    "iesire.")
 
 def DisplayStart():
     """
