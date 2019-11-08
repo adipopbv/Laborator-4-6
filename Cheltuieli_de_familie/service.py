@@ -10,7 +10,7 @@ def DoFunctionalityWithId(funcId):
     Args:
         commandId (int): a functionality id
     """
-    if Expenses.repo == [] or Expenses.historyRepo == []:
+    if Expenses.repo == [] and Expenses.historyRepo == []:
         Expenses.repo = Repo.MakeRepo()
         Expenses.historyRepo = Repo.MakeRepo()
     functionalities[funcId]()
@@ -52,6 +52,7 @@ def Erase(command):
         IO.OperationSuccesful()
     except Exception as ex:
         IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
 
 def Filter(command):
     try:
