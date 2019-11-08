@@ -53,6 +53,16 @@ def OperationSuccesful():
     """
     Graphics.Display("Operatie reusita!")
 
+def GetCommand():
+    """
+    gets a command
+    
+    Returns:
+        str: a command
+    """
+    command = Input("Introduceti comanda dorita: ")
+    return command
+
 def GetCommandId():
     """
     gets a command id from the user

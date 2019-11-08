@@ -15,6 +15,48 @@ def DoFunctionalityWithId(funcId):
         Expenses.historyRepo = Repo.MakeRepo()
     functionalities[funcId]()
 
+def DoCommand(command):
+
+    try:
+        commands[command[0]](command)
+    except Exception as ex:
+        IO.OutputException(ex)
+
+#---------------------------
+
+def Add(command):
+
+    try:
+        expense = Expenses.MakeExpense(command[1],command[2],command[3])
+        Commands.AddNewExpense(Expenses.repo, expense)
+    except Exception as ex:
+        IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
+
+def Update(command):
+    try:
+        originalExpense = Expenses.MakeExpense(command[1],command[2],command[3])
+        updatedExpense = Expenses.MakeExpense(command[5],command[6],command[7])
+        Commands.UpdateExpense(Expenses.repo, originalExpense, updatedExpense)
+    except Exception as ex:
+        IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
+
+def Erase(command):
+    try:
+        day = int(command[3])
+        Commands.EraseAllExpensesForGivenDay(Expenses.repo, day)
+    except Exception as ex:
+        IO.OutputException(ex)
+
+def Filter(command):
+    try:
+        category = str(command[1])
+        Commands.WithoutExpensesOfGivenCategory(Expenses.repo, category)
+    except Exception as ex:
+        IO.OutputException(ex)
+    Repo.AddToRepo(Expenses.historyRepo, Repo.CloneRepo(Expenses.repo))
+
 #---------------------------
 
 def AddNewExpense():
@@ -242,4 +284,11 @@ functionalities = {
     "14": WithoutExpensesLessThanGivenAmmount,
     "15": UndoLastOperation,
     "16": ExitApplication
+}
+
+commands = {
+    "adauga": Add,
+    "actualizeaza": Update,
+    "sterge": Erase,
+    "filtreaza": Filter
 }

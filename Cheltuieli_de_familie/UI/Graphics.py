@@ -22,7 +22,7 @@ def DisplayAppName():
             "     Cheltuieli De Familie  \n" +
             "   <-----------------------> ")
 
-def DisplayCommands():
+def DisplayPickCommands():
     """
     displays all the posible commands that can be inputed, with a description
     """
@@ -51,9 +51,31 @@ def DisplayCommands():
     "\n[16]: Iesire din aplicatie.")
     EmptyLine()
 
-def DisplayMenu():
+def DisplayWritingCommands():
+
+    Display("COMENZI:")
+    Display("adauga [ziua] [suma] [categoria];\n" + 
+    "actualizeaza [ziua] [suma] [categoria] cu [ziua noua] [suma noua] [categoria noua];\n" + 
+    "sterge cheltuielile din [ziua];\n" + 
+    "filtreaza [suma minima].")
+
+def DisplayStart():
     """
-    displays the main menu
+    display the start screen
     """
     DisplayAppName()
-    DisplayCommands()
+    Display("COMENZI:")
+    Display("[1]: Meniu clasic (alegere de comanda);\n" + 
+            "[2]: Meniu scriere (scriere de comanda);")
+
+def DisplayMenu1():
+    """
+    displays the command pick main menu
+    """
+    DisplayPickCommands()
+
+def DisplayMenu2():
+    """
+    displays the command write main menu
+    """
+    DisplayWritingCommands()

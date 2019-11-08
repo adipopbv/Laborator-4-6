@@ -22,9 +22,20 @@ def RunApplication():
     shows the menu, gets and executes a command every iteration
     """
     while True:
-        Graphics.DisplayMenu()
-        commandId = IO.GetCommandId()
-        Service.DoFunctionalityWithId(commandId)
+        Graphics.DisplayStart()
+        menuType = IO.GetCommandId()
+        if menuType == "1":
+            Graphics.DisplayMenu1()
+            commandId = IO.GetCommandId()
+            Service.DoFunctionalityWithId(commandId)
+        elif menuType == "2":
+            Graphics.DisplayMenu2()
+            command = IO.GetCommand()
+            command.split()
+            Service.DoCommand(command)
 
 RunAllTests()
 RunApplication()
+
+# adauga 1, 2, apa
+# 4 comenzi de genul asta
